@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rashu Astro · राशु ज्योतिष — AI Astrology by Rashu Infos</title>
+<meta name="description" content="Ultra-modern AI astrology web app — rashifal, numerology, planets. Powered by rashu infos : info-ai">
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Hind:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ══════════ FLASH SCREEN ══════════ -->
+<div id="splash">
+  <div class="splash-inner">
+    <div class="splash-logo">
+      <img src="assets/logo.svg" alt="Rashu Infos">
+      <div class="splash-ring"></div>
+      <div class="splash-ring r2"></div>
+    </div>
+    <h1 class="splash-title">RASHU <span>ASTRO</span></h1>
+    <p class="splash-sub"> rashu infos : info-ai</p>
+    <div class="splash-bar"><div class="splash-fill"></div></div>
+  </div>
+</div>
+
+<!-- ══════════ BACKGROUND FX ══════════ -->
+<canvas id="starfield"></canvas>
+<div class="orb orb-a"></div>
+<div class="orb orb-b"></div>
+<div class="orb orb-c"></div>
+<div class="grid-overlay"></div>
+
+<!-- ══════════ NAVBAR ══════════ -->
+<nav class="navbar" id="navbar">
+  <a href="#home" class="nav-brand">
+    <img src="assets/logo.svg" alt="logo" class="nav-logo">
+    <div class="brand-text">
+      <span class="brand-name">Rashu <b>Astro</b></span>
+      <span class="brand-tag">rashu infos : info-ai</span>
+    </div>
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a href="#home" class="nav-link active">Home</a>
+    <a href="#zodiac" class="nav-link">Rashifal</a>
+    <a href="#planets" class="nav-link">Planets</a>
+    <a href="#numerology" class="nav-link">Numerology</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ══════════ HERO ══════════ -->
+<header class="hero" id="home">
+  <div class="hero-content">
+    <div class="hero-badge reveal">
+      <span class="badge-dot"></span> AI-Powered Jyotish Experience
+    </div>
+    <h1 class="hero-title reveal">
+      आपकी किस्मत,<br>
+      <span class="grad-text">अब AI की नज़र से</span>
+    </h1>
+    <p class="hero-sub reveal">
+      12 राशियों का दैनिक राशिफल, ग्रह-गोचर की जानकारी और न्यूमरोलॉजी —
+      सब कुछ एक ही ultra-modern cosmic dashboard में।
+    </p>
+    <div class="hero-btns reveal">
+      <a href="#zodiac" class="btn btn-primary">
+        <span>अपनी राशि देखें</span>
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#numerology" class="btn btn-ghost">अंक ज्योतिष</a>
+    </div>
+    <div class="hero-stats reveal">
+      <div class="stat"><b>12</b><span>राशियाँ</span></div>
+      <div class="stat"><b>9</b><span>ग्रह</span></div>
+      <div class="stat"><b>∞</b><span>संभावनाएँ</span></div>
+    </div>
+  </div>
+
+  <div class="hero-wheel reveal">
+    <div class="wheel-glow"></div>
+    <div class="zodiac-wheel" id="zodiacWheel"></div>
+    <div class="wheel-center">
+      <img src="assets/logo.svg" alt="">
+    </div>
+  </div>
+</header>
+
+<!-- ══════════ MARQUEE ══════════ -->
+<div class="marquee-wrap">
+  <div class="marquee" id="marquee"></div>
+</div>
+
+<!-- ══════════ ZODIAC ══════════ -->
+<section class="section" id="zodiac">
+  <div class="section-head reveal">
+    <span class="section-chip">✦ Daily Rashifal ✦</span>
+    <h2 class="section-title">12 राशियों का <span class="grad-text">राशिफल</span></h2>
+    <p class="section-sub">अपनी राशि पर टैप करें — आज का भविष्य, लकी नंबर और शुभ रंग पाएँ</p>
+  </div>
+  <div class="zodiac-grid" id="zodiacGrid"></div>
+</section>
+
+<!-- ══════════ PLANETS ══════════ -->
+<section class="section" id="planets">
+  <div class="section-head reveal">
+    <span class="section-chip">✦ Graha Gyan ✦</span>
+    <h2 class="section-title">नवग्रह <span class="grad-text">Navagraha</span></h2>
+    <p class="section-sub">ज्योतिष के 9 ग्रह — जो आपकी कुंडली को चलाते हैं</p>
+  </div>
+  <div class="planet-grid" id="planetGrid"></div>
+</section>
+
+<!-- ══════════ NUMEROLOGY ══════════ -->
+<section class="section" id="numerology">
+  <div class="section-head reveal">
+    <span class="section-chip">✦ Ank Jyotish ✦</span>
+    <h2 class="section-title">अंक <span class="grad-text">ज्योतिष</span></h2>
+    <p class="section-sub">जन्म तारीख से जानें अपना भाग्यांक और उसका ग्रह स्वामी</p>
+  </div>
+
+  <div class="num-layout reveal">
+    <form class="num-form glass" id="numForm">
+      <div class="form-group">
+        <label for="numName">आपका नाम</label>
+        <input type="text" id="numName" placeholder="जैसे: Mangal" required>
+      </div>
+      <div class="form-group">
+        <label for="numDob">जन्म तारीख</label>
+        <input type="date" id="numDob" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-full">
+        <span>भाग्यांक जानें</span>
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z" fill="currentColor"/></svg>
+      </button>
+    </form>
+
+    <div class="num-result glass" id="numResult">
+      <div class="num-placeholder">
+        <div class="num-orb">?</div>
+        <p>नाम और जन्म तारीख डालकर<br>अपना भाग्यांक खोजें</p>
+      </div>
+      <div class="num-detail" id="numDetail" hidden>
+        <div class="num-big" id="numBig">7</div>
+        <h3 id="numTitle">Moolank 7</h3>
+        <p class="num-planet" id="numPlanet"></p>
+        <p class="num-desc" id="numDesc"></p>
+        <div class="num-lucky">
+          <div><b id="numLuckyNum">-</b><span>Lucky No.</span></div>
+          <div><b id="numLuckyColor">-</b><span>Lucky Color</span></div>
+          <div><b id="numDay">-</b><span>शुभ दिन</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FEATURES ══════════ -->
+<section class="section" id="features">
+  <div class="section-head reveal">
+    <span class="section-chip">✦ Why Rashu Astro ✦</span>
+    <h2 class="section-title">High-Tech <span class="grad-text">Cosmic Engine</span></h2>
+  </div>
+  <div class="feature-grid">
+    <div class="feature-card glass reveal">
+      <div class="f-icon">⚡</div>
+      <h3>Instant Rashifal</h3>
+      <p>हर दिन fresh भविष्यवाणी — तुरंत, बिना wait के।</p>
+    </div>
+    <div class="feature-card glass reveal">
+      <div class="f-icon">🔮</div>
+      <h3>AI Insights</h3>
+      <p>rashu infos : info-ai engine से smart astro-analysis।</p>
+    </div>
+    <div class="feature-card glass reveal">
+      <div class="f-icon">📱</div>
+      <h3>Mobile + Desktop</h3>
+      <p>हर screen size पर perfect responsive experience।</p>
+    </div>
+    <div class="feature-card glass reveal">
+      <div class="f-icon">✨</div>
+      <h3>Cosmic FX</h3>
+      <p>Live starfield, glowing orbs और buttery animations।</p>
+    </div>
+  </div>
+</section>
+
+<div class="footer-space"></div>
+
+<!-- ══════════ FIXED BOTTOM BAR ══════════ -->
+<footer class="powered-bar">
+  <span class="p-text">POWERED BY</span>
+  <span class="p-brand">rashu infos <span class="p-sep">:</span> info-ai</span>
+</footer>
+
+<!-- ══════════ HOROSCOPE MODAL ══════════ -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal glass" role="dialog" aria-modal="true">
+    <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+    <div class="modal-head">
+      <div class="modal-symbol" id="mSymbol">♌</div>
+      <div>
+        <h3 id="mName">Leo · सिंह</h3>
+        <p id="mDates">23 Jul – 22 Aug · Fire</p>
+      </div>
+    </div>
+    <div class="modal-body">
+      <p class="m-hindi" id="mHindi"></p>
+      <p id="mHoro"></p>
+      <div class="m-tags" id="mTraits"></div>
+      <div class="m-lucky">
+        <div class="m-lucky-item"><span>🔢</span><b id="mLuckyNum">7</b><small>Lucky Number</small></div>
+        <div class="m-lucky-item"><span>🎨</span><b id="mLuckyColor">Gold</b><small>Lucky Color</small></div>
+        <div class="m-lucky-item"><span>💞</span><b id="mMatch">Aries</b><small>Best Match</small></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
